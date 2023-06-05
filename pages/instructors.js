@@ -1,6 +1,9 @@
 import React from 'react';
 import instructorData from '../source/author.json';
 
+
+
+
 const InstructorDetails = ({ instructor }) => {
   return (
     <div>
@@ -39,9 +42,16 @@ export async function getServerSideProps() {
   //const response = await fetch('../source/author.json');
   //const instructor = await response.json();
   const instructor=instructorData
+  try{
+    const author_image_link = await fetchAuthorImageLink('YOUR_KEYWORD');
+    instructor["url_picture"]=author_image_link
+  }catch(error){
+    pass
+  }
+
   return {
     props: {
-      instructor,
+      instructor,author_image_link
     },
   };
 }
