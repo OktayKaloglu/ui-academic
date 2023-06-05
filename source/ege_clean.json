@@ -1,0 +1,29 @@
+[
+    {
+      "organization": "Ege University",
+      "initials": "ege",
+      "href": "https://ebp.ege.edu.tr/DereceProgramlari/Ders/1/2626/121959/633004/1",
+      "course_code": "501001042010",
+      "course_name": "MATEMATİK-I",
+      "course_info": "Bu dersin amacı öğrencilerin temel matematiksel kavramları matematiksel hiyerarşi ve bütünlük içerisinde anlamasını sağlamak ve diğer matematik tabanlı dersler için matematiksel alt yapıya sahip olmalarını sağlamaktır.",
+      "instructor": "Assoc. Prof. Dr. Vecdi AYTAÇ"
+    },
+    {
+      "organization": "Ege University",
+      "initials": "ege",
+      "href": "https://ebp.ege.edu.tr/DereceProgramlari/Ders/1/2626/121962/635616/1",
+      "course_code": "501001052007",
+      "course_name": "FİZİK-I",
+      "course_info": "Bu dersin sonunda öğrenciler bir fiziksel olayı nasıl ele alabileceklerini, bu olay ile ilgili problemlerin çözümü için nasıl bir yöntem izleneceğini, gerekli matemetiksel bağıntıları kullanarak problemlerin çözümünü öğreneceklerdir.",
+      "instructor": "Prof. Dr.Cüneyt ÇELİKTAŞ, Assoc. Prof. Dr. Mine ÇAPAR"
+    },
+    {
+      "organization": "Ege University",
+      "initials": "ege",
+      "href": "https://ebp.ege.edu.tr/DereceProgramlari/Ders/1/2626/121965/632540/1",
+      "course_code": "501001071994",
+      "course_name": "ALGORİTMA VE PROGRAMLAMA-I",
+      "course_info": "Bu dersin amacı, öğrencilerin temel algoritma ve problem çözme yapıları hakkında bilgi sahibi olmasını ve bir problemle karşılaştıklarında bu temel yapıları kullanarak algoritmalar tasarlayabilme ve bu algoritmaları Python programlama dili ile gerçekleştirebilme yeteneğini kazanmasını sağlamaktır.",
+      "instructor": "Dr. Öğr. Üyesi Özgür Gümüş"
+    }
+]

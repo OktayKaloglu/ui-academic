@@ -1,0 +1,11 @@
+            <table>
+                <tbody>
+                {jsonData.map((row, rowIndex) => (
+                    <tr key={rowIndex}>
+                    {col.map((cell, cellIndex) => (
+                        <td key={cellIndex}>{JSON.stringify(row[cell])}</td>
+                    ))}
+                    </tr>
+                ))}
+                </tbody>
+        </table>
