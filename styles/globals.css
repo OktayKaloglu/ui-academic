@@ -24,3 +24,15 @@ a {
     background: black;
   }
 }
+.container {
+  display: flex;
+  max-height: 500px;
+}
+
+.column {
+  flex: 1;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  overflow: auto;
+}
