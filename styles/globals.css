@@ -24,15 +24,25 @@ a {
     background: black;
   }
 }
-.container {
-  display: flex;
-  max-height: 500px;
-}
 
 .column {
-  flex: 1;
-  display: grid;
-  grid-template-rows: auto 1fr;
-  height: 100%;
+  min-height: 50vh;
+  max-height:70vh;
+  
   overflow: auto;
+  scrollbar-width: thin; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  scrollbar-color: transparent transparent; /* For Chrome, Safari, and Opera */
+}
+
+.column::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.column::-webkit-scrollbar-track {
+  background-color: transparent; /* Color of the scrollbar track */
+}
+
+.column::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Color of the scrollbar thumb */
 }
