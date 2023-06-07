@@ -1,6 +1,4 @@
 import React from "react";
-import instructorData from "../source/author.json";
-import Link from "next/link";
 import {
   Image,
   Container,
@@ -26,11 +24,11 @@ const getMaxCitationsPublication = (publications) => {
 
   return maxPublication;
 };
-const InstructorDetails = ({ instructor }) => {
+const InstructorDetails = ({ instructor, displayFull = true }) => {
   const max_citation = getMaxCitationsPublication(instructor.publications);
   return (
-    <Container gap={0} display={"flex"} max-height={"80%"}>
-      <Row gap={1}>
+    <Container gap={0} css={{ minHeight: "100vh" }}>
+      <Row gap={1} css={{ maxH: "0" }}>
         <Col className="column">
           <Card css={{ $$cardColor: "$colors$primary" }}>
             <Card.Header>
@@ -72,64 +70,79 @@ const InstructorDetails = ({ instructor }) => {
             </Card.Body>
           </Card>
         </Col>
-        <Col className="column">
-          <Card css={{ $$cardColor: "$colors$primary" }}>
-            <Card.Body>
-              <h2>Interests:</h2>
-              <ul>
-                {instructor.interests.map((interest, index) => (
-                  <li key={index}>{interest}</li>
-                ))}
-              </ul>
-            </Card.Body>
-            <Container>
-              <h2>Lessons:</h2>
+        {displayFull ? (
+          <Row>
+            <Col className="column">
+              <Card css={{ $$cardColor: "$colors$primary" }}>
+                <Card.Body>
+                  <h2>Interests:</h2>
+                  <ul>
+                    {instructor.interests.map((interest, index) => (
+                      <li key={index}>{interest}</li>
+                    ))}
+                  </ul>
+                </Card.Body>
+                <Container>
+                  <h2>Lessons:</h2>
 
-              {instructor.publications.map((publication, index) => (
-                <Card css={{ marginTop: "1vh" }} isHoverable key={index}>
-                  <Card.Body>
-                    <h3>{publication.bib.title}</h3>
-                    <p>Publication Year: {publication.bib.pub_year}</p>
-                    <p>Citation: {publication.bib.citation}</p>
-                    <p>Number of Citations: {publication.num_citations}</p>
-                    <a>Read More...</a>
-                  </Card.Body>
+                  {instructor.publications.map((publication, index) => (
+                    <Card css={{ marginTop: "1vh" }} isHoverable key={index}>
+                      <Card.Body>
+                        <h3>{publication.bib.title}</h3>
+                        <p>Publication Year: {publication.bib.pub_year}</p>
+                        <p>Citation: {publication.bib.citation}</p>
+                        <p>Number of Citations: {publication.num_citations}</p>
+                        <a>Read More...</a>
+                      </Card.Body>
+                    </Card>
+                  ))}
+                </Container>
+              </Card>
+            </Col>
+            <Col className="column" css={{ minWidth: "90vh" }}>
+              <Container>
+                <Card css={{ $$cardColor: "$colors$primary" }}>
+                  <Card.Header css={{ marginBottom: "-2vh" }}>
+                    <h2>Publications:</h2>
+                  </Card.Header>
+                  <Container>
+                    {instructor.publications.map((publication, index) => (
+                      <PublicationCard
+                        key={index}
+                        publication={publication}
+                        displayDesc={true}
+                      />
+                    ))}
+                  </Container>
                 </Card>
-              ))}
-            </Container>
-          </Card>
-        </Col>
-        <Col className="column">
-          <Container>
-            <h2>Publications:</h2>
-
-            {instructor.publications.map((publication, index) => (
-              <PublicationCard
-                key={index}
-                publication={publication}
-                displayDesc={true}
-              />
-            ))}
-          </Container>
-        </Col>
+              </Container>
+            </Col>
+          </Row>
+        ) : (
+          <></>
+        )}
       </Row>
     </Container>
   );
 };
 
-const InstructorPage = ({ instructor }) => {
-  return <InstructorDetails instructor={instructor} />;
+const InstructorPage = ({ instructor, displayFull }) => {
+  return (
+    <InstructorDetails instructor={instructor} displayFull={displayFull} />
+  );
 };
 
 export async function getServerSideProps() {
   //for api
   //const response = await fetch('../source/author.json');
   //const instructor = await response.json();
-  const instructor = instructorData;
-
+  const instructorData = require("../source/author.json");
+  const instructor = instructorData[0];
+  const displayFull = true;
   return {
     props: {
       instructor,
+      displayFull,
     },
   };
 }

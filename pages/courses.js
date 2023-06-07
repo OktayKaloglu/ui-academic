@@ -9,8 +9,8 @@ import {
   Table,
   Row,
 } from "@nextui-org/react";
-import TableWrapper from "../pages/table";
-import Course from "../pages/Course";
+import TableWrapper from "../components/table";
+import CoursePage from "./course";
 
 export async function getServerSideProps() {
   const jsonData = require("../source/ege_clean.json");
@@ -23,17 +23,26 @@ export async function getServerSideProps() {
 }
 
 const Courses = ({ jsonData }) => {
+  const [rowID, setRowID] = useState(0);
+  const onRowClick = (index) => {
+    setRowID(index);
+  };
   return (
-    <Container>
-      <Grid.Container
-        justify="center"
-        css={{
-          height: "500px",
-          backgroundImage: "url(https://littlevisuals.co/images/sunset.jpg)",
-        }}
-      >
-        <TableWrapper jsonData={jsonData} />
-      </Grid.Container>
+    <Container
+      css={{
+        backgroundImage: "url(https://littlevisuals.co/images/sunset.jpg)",
+      }}
+    >
+      <Row>
+        <Col>
+          <TableWrapper
+            jsonData={jsonData}
+            col={["organization", "initials", "course_name"]}
+            onRowClick={onRowClick}
+          />
+        </Col>
+        <Col>{rowID ? <CoursePage course={jsonData[rowID]} /> : <></>}</Col>
+      </Row>
     </Container>
   );
 };
