@@ -1,5 +1,13 @@
-import { Container, Navbar, Text, Button, Grid, Col } from "@nextui-org/react";
-
+import {
+  Container,
+  Navbar,
+  Text,
+  Button,
+  Grid,
+  Col,
+  Input,
+} from "@nextui-org/react";
+import CustomSearch from "../search/index";
 const NavbarWrapper = () => {
   return (
     <Container>
@@ -19,11 +27,15 @@ const NavbarWrapper = () => {
           <Navbar.Link href="/instructors">Instructors</Navbar.Link>
         </Navbar.Content>
         <Navbar.Content>
-          <Navbar.Link href="#">Login</Navbar.Link>
-          <Navbar.Item>
-            <Button auto flat href="#">
-              Sign Up
-            </Button>
+          <Navbar.Item
+            css={{
+              "@xsMax": {
+                w: "100%",
+                jc: "center",
+              },
+            }}
+          >
+            <CustomSearch />
           </Navbar.Item>
         </Navbar.Content>
       </Navbar>

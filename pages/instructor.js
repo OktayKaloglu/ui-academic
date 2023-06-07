@@ -28,7 +28,7 @@ const InstructorDetails = ({ instructor, displayFull = true }) => {
   const max_citation = getMaxCitationsPublication(instructor.publications);
   return (
     <Container gap={0} css={{ minHeight: "100vh" }}>
-      <Row gap={1} css={{ maxH: "0" }}>
+      <Row gap={1}>
         <Col className="column">
           <Card css={{ $$cardColor: "$colors$primary" }}>
             <Card.Header>

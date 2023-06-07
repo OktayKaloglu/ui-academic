@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/react";
 import TableWrapper from "../components/table";
 import InstructorDetails from "./instructor";
-
+import { useRouter } from "next/router";
 export async function getServerSideProps() {
   const jsonData = require("../source/author.json");
 
@@ -23,7 +23,8 @@ export async function getServerSideProps() {
 }
 
 const Instructors = ({ jsonData }) => {
-  const [rowID, setRowID] = useState(0);
+  const router = useRouter();
+  const [rowID, setRowID] = useState(-1);
   const onRowClick = (index) => {
     setRowID(index);
   };
@@ -33,25 +34,35 @@ const Instructors = ({ jsonData }) => {
         backgroundImage: "url(https://littlevisuals.co/images/sunset.jpg)",
       }}
     >
-      <Row>
-        <Col>
-          <TableWrapper
-            jsonData={jsonData}
-            col={["name", "affiliation"]}
-            onRowClick={onRowClick}
-          />
-        </Col>
-        <Col>
-          {rowID ? (
-            <InstructorDetails
-              instructor={jsonData[rowID]}
-              displayFull={false}
+      {rowID == -1 ? (
+        <TableWrapper
+          jsonData={jsonData}
+          col={["name", "affiliation"]}
+          onRowClick={onRowClick}
+        />
+      ) : (
+        <Row>
+          <Col>
+            <TableWrapper
+              jsonData={jsonData}
+              col={["name", "affiliation"]}
+              onRowClick={onRowClick}
             />
-          ) : (
-            <></>
-          )}
-        </Col>
-      </Row>
+          </Col>
+          <Col>
+            <Container
+              onClick={() => {
+                router.push("./instructor");
+              }}
+            >
+              <InstructorDetails
+                instructor={jsonData[rowID]}
+                displayFull={false}
+              />
+            </Container>
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 };

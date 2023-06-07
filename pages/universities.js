@@ -22,7 +22,7 @@ export async function getServerSideProps() {
 }
 
 const Universities = ({ jsonData }) => {
-  const [rowID, setRowID] = useState(0);
+  const [rowID, setRowID] = useState(-1);
   const onRowClick = (index) => {
     setRowID(index);
   };
@@ -35,27 +35,32 @@ const Universities = ({ jsonData }) => {
         backgroundImage: "url(https://littlevisuals.co/images/sunset.jpg)",
       }}
     >
-      <Row>
-        <Col>
-          <TableWrapper
-            jsonData={jsonData}
-            col={["organization", "initials"]}
-            onRowClick={onRowClick}
-            select={"replace"}
-          />
-        </Col>
-        <Col>
-          {rowID ? (
+      {rowID == -1 ? (
+        <TableWrapper
+          jsonData={jsonData}
+          col={["organization", "initials"]}
+          onRowClick={onRowClick}
+          select={"replace"}
+        />
+      ) : (
+        <Row>
+          <Col>
+            <TableWrapper
+              jsonData={jsonData}
+              col={["organization", "initials"]}
+              onRowClick={onRowClick}
+              select={"replace"}
+            />
+          </Col>
+          <Col>
             <TableWrapper
               jsonData={jsonData}
               col={["organization", "course_name"]}
               onRowClick={onRowClick2}
             />
-          ) : (
-            <></>
-          )}
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 };

@@ -9,34 +9,30 @@ const TableWrapper = ({ jsonData, onRowClick, col }) => {
   };
   return (
     <Container>
-      <Row>
-        <Col css={{ minWidth: "50vh", maxWidth: "80vh" }}>
-          <Table
-            className="column"
-            compact
-            bordered
-            aria-label="Example static collection table"
-            selectionMode="single"
-            onSelectionChange={"true"}
-            onRowAction={(key) => handleClick(key)}
-          >
-            <Table.Header>
-              {col.map((row, index) => (
-                <Table.Column>{JSON.stringify(row)}</Table.Column>
+      <Table
+        className="column"
+        compact
+        bordered
+        aria-label="Example static collection table"
+        selectionMode="single"
+        onSelectionChange={"true"}
+        onRowAction={(key) => handleClick(key)}
+      >
+        <Table.Header>
+          {col.map((row, index) => (
+            <Table.Column>{JSON.stringify(row)}</Table.Column>
+          ))}
+        </Table.Header>
+        <Table.Body>
+          {jsonData.map((row, index) => (
+            <Table.Row key={index}>
+              {col.map((cl, j) => (
+                <Table.Cell>{JSON.stringify(row[cl])}</Table.Cell>
               ))}
-            </Table.Header>
-            <Table.Body>
-              {jsonData.map((row, index) => (
-                <Table.Row key={index}>
-                  {col.map((cl, j) => (
-                    <Table.Cell>{JSON.stringify(row[cl])}</Table.Cell>
-                  ))}
-                </Table.Row>
-              ))}
-            </Table.Body>
-          </Table>
-        </Col>
-      </Row>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
     </Container>
   );
 };

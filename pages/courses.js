@@ -23,7 +23,7 @@ export async function getServerSideProps() {
 }
 
 const Courses = ({ jsonData }) => {
-  const [rowID, setRowID] = useState(0);
+  const [rowID, setRowID] = useState(-1);
   const onRowClick = (index) => {
     setRowID(index);
   };
@@ -33,16 +33,24 @@ const Courses = ({ jsonData }) => {
         backgroundImage: "url(https://littlevisuals.co/images/sunset.jpg)",
       }}
     >
-      <Row>
-        <Col>
-          <TableWrapper
-            jsonData={jsonData}
-            col={["organization", "initials", "course_name"]}
-            onRowClick={onRowClick}
-          />
-        </Col>
-        <Col>{rowID ? <CoursePage course={jsonData[rowID]} /> : <></>}</Col>
-      </Row>
+      {rowID == -1 ? (
+        <TableWrapper
+          jsonData={jsonData}
+          col={["organization", "initials", "course_name"]}
+          onRowClick={onRowClick}
+        />
+      ) : (
+        <Row>
+          <Col>
+            <TableWrapper
+              jsonData={jsonData}
+              col={["organization", "initials", "course_name"]}
+              onRowClick={onRowClick}
+            />
+          </Col>
+          <Col>{rowID ? <CoursePage course={jsonData[rowID]} /> : <></>}</Col>
+        </Row>
+      )}
     </Container>
   );
 };
