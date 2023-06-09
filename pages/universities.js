@@ -11,15 +11,19 @@ import {
 } from "@nextui-org/react";
 import TableWrapper from "../components/table";
 
-export async function getServerSideProps() {
-  const jsonData = require("../source/ege_clean.json");
-
-  return {
-    props: {
-      jsonData,
-    },
-  };
-}
+export const getServerSideProps = async () => {
+  try {
+    const res = await fetch("http://89.252.131.124:8080/api/university");
+    if (!res.ok) {
+      throw new Error("Bad request");
+    }
+    const json = await res.json();
+    const jsonData = json["data"];
+    return { props: { jsonData } };
+  } catch (error) {
+    return { props: { error: error.message } };
+  }
+};
 
 const Universities = ({ jsonData }) => {
   const [rowID, setRowID] = useState(-1);
@@ -38,16 +42,16 @@ const Universities = ({ jsonData }) => {
       {rowID == -1 ? (
         <TableWrapper
           jsonData={jsonData}
-          col={["organization", "initials"]}
+          col={Object.keys(jsonData[0])}
           onRowClick={onRowClick}
           select={"replace"}
         />
       ) : (
-        <Row>
-          <Col>
+        <Row className=".column">
+          <Col css={{ minWidth: "70ch" }}>
             <TableWrapper
               jsonData={jsonData}
-              col={["organization", "initials"]}
+              col={Object.keys(jsonData[0])}
               onRowClick={onRowClick}
               select={"replace"}
             />
@@ -55,7 +59,7 @@ const Universities = ({ jsonData }) => {
           <Col>
             <TableWrapper
               jsonData={jsonData}
-              col={["organization", "course_name"]}
+              col={Object.keys(jsonData[0])}
               onRowClick={onRowClick2}
             />
           </Col>

@@ -9,6 +9,7 @@ import {
   Spacer,
 } from "@nextui-org/react";
 import PublicationCard from "@/components/cards/publication";
+import { useRouter } from "next/router";
 
 const getMaxCitationsPublication = (publications) => {
   let maxPublication = null;
@@ -24,15 +25,19 @@ const getMaxCitationsPublication = (publications) => {
 
   return maxPublication;
 };
-const InstructorDetails = ({ instructor, displayFull = true }) => {
-  const max_citation = getMaxCitationsPublication(instructor.publications);
+const InstructorDetails = ({ instructor }) => {
+  const router = useRouter();
+  const { instructor_id, displayFull } = router.query;
+  if (displayFull) {
+    const max_citation = getMaxCitationsPublication(instructor.publications);
+  }
   return (
-    <Container gap={0} css={{ minHeight: "100vh" }}>
+    <Container gap={0}>
       <Row gap={1}>
         <Col className="column">
           <Card css={{ $$cardColor: "$colors$primary" }}>
             <Card.Header>
-              <Text h1>{instructor.name}</Text>
+              <Text h1>{instructor.filtered_name}</Text>
             </Card.Header>
 
             <Card.Body>
@@ -40,8 +45,8 @@ const InstructorDetails = ({ instructor, displayFull = true }) => {
                 <Col xs>
                   <Image
                     autoResize="true"
-                    src={instructor.url_picture}
-                    alt={instructor.name}
+                    src={instructor.profile_picture}
+                    alt={instructor.filtered_name}
                     objectFit="contain"
                   />
                 </Col>
@@ -49,21 +54,27 @@ const InstructorDetails = ({ instructor, displayFull = true }) => {
                 <Col css={{ marginLeft: "2vh" }}>
                   <Container>
                     <Text size={20}>
-                      <b>Affiliation:</b> {instructor.affiliation}
+                      <b>Affiliation:</b> {instructor.affilation}
                     </Text>
 
                     <Text size={20}>
                       <b>Total Citation:</b> {instructor.citedby}
                     </Text>
                     <Text size={20}>
-                      <b>Top-cited publication:</b> {max_citation.num_citations}
+                      <b>Total in 5 year Citation:</b> {instructor.citedby5y}
                     </Text>
-
-                    <PublicationCard
-                      publication={max_citation}
-                      displayDesc={false}
-                      index={"1"}
-                    />
+                    <Text size={20}>
+                      <b>hindex:</b> {instructor.hindex}
+                    </Text>
+                    <Text size={20}>
+                      <b>hindex in 5 year Citation:</b> {instructor.hindex5y}
+                    </Text>
+                    <Text size={20}>
+                      <b>i10index:</b> {instructor.i10index}
+                    </Text>
+                    <Text size={20}>
+                      <b>i10index5y:</b> {instructor.i10index5y}
+                    </Text>
                   </Container>
                 </Col>
               </Row>

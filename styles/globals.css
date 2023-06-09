@@ -25,15 +25,7 @@ a {
   }
 }
 
-.column {
-  min-height: 100vh;
-  max-height:70vh;
-  
-  overflow: auto;
-  scrollbar-width: thin; /* For Firefox */
-  -ms-overflow-style: none; /* For Internet Explorer and Edge */
-  scrollbar-color: transparent transparent; /* For Chrome, Safari, and Opera */
-}
+ 
 
 .column::-webkit-scrollbar {
   width: 8px; /* Width of the scrollbar */
@@ -45,4 +37,65 @@ a {
 
 .column::-webkit-scrollbar-thumb {
   background-color: transparent; /* Color of the scrollbar thumb */
+}
+.text{
+  color: #D5CEA3;
+}
+.container {
+  min-height: 100vh;
+  background-color: #1a1a1a;
+  color: #D5CEA3;
+}
+
+.column {
+  
+  background-color: #3C2A21;
+  
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+ 
+.card {
+  margin-top: 1vh;
+  background-color: #3C2A21;
+  color: #D5CEA3;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.infoColumn {
+  margin-left: 2vh;
+}
+
+.publicationCard {
+  margin-top: 1vh;
+  background-color: #252525;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.publicationsContainer {
+  height: auto; /* Remove the fixed height */
+  background-color: #252525;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.title {
+  color: #64DD17;
+}
+
+.year {
+  color: #FF1744;
+}
+
+.citation {
+  color: #2979FF;
+}
+
+.numCitations {
+  color: #9C27B0;
 }

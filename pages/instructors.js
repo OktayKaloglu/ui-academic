@@ -12,15 +12,20 @@ import {
 import TableWrapper from "../components/table";
 import InstructorDetails from "./instructor";
 import { useRouter } from "next/router";
-export async function getServerSideProps() {
-  const jsonData = require("../source/author.json");
 
-  return {
-    props: {
-      jsonData,
-    },
-  };
-}
+export const getServerSideProps = async () => {
+  try {
+    const res = await fetch("http://89.252.131.124:8080/api/instructor");
+    if (!res.ok) {
+      throw new Error("Bad request");
+    }
+    const json = await res.json();
+    const jsonData = json["data"];
+    return { props: { jsonData } };
+  } catch (error) {
+    return { props: { error: error.message } };
+  }
+};
 
 const Instructors = ({ jsonData }) => {
   const router = useRouter();
@@ -37,22 +42,28 @@ const Instructors = ({ jsonData }) => {
       {rowID == -1 ? (
         <TableWrapper
           jsonData={jsonData}
-          col={["name", "affiliation"]}
+          col={Object.keys(jsonData[0])}
           onRowClick={onRowClick}
         />
       ) : (
         <Row>
-          <Col>
+          <Col css={{ minWidth: "90ch" }}>
             <TableWrapper
               jsonData={jsonData}
-              col={["name", "affiliation"]}
+              col={Object.keys(jsonData[0])}
               onRowClick={onRowClick}
             />
           </Col>
           <Col>
             <Container
               onClick={() => {
-                router.push("./instructor");
+                router.push({
+                  pathname: "/instructor",
+                  query: {
+                    instructor_id: jsonData[rowID].id,
+                    displayFull: true,
+                  },
+                });
               }}
             >
               <InstructorDetails

@@ -12,15 +12,19 @@ import {
 import TableWrapper from "../components/table";
 import CoursePage from "./course";
 
-export async function getServerSideProps() {
-  const jsonData = require("../source/ege_clean.json");
-
-  return {
-    props: {
-      jsonData,
-    },
-  };
-}
+export const getServerSideProps = async () => {
+  try {
+    const res = await fetch("http://89.252.131.124:8080/api/course");
+    if (!res.ok) {
+      throw new Error("Bad request");
+    }
+    const json = await res.json();
+    const jsonData = json["data"];
+    return { props: { jsonData } };
+  } catch (error) {
+    return { props: { error: error.message } };
+  }
+};
 
 const Courses = ({ jsonData }) => {
   const [rowID, setRowID] = useState(-1);
@@ -36,19 +40,19 @@ const Courses = ({ jsonData }) => {
       {rowID == -1 ? (
         <TableWrapper
           jsonData={jsonData}
-          col={["organization", "initials", "course_name"]}
+          col={["organization", "name", "code"]}
           onRowClick={onRowClick}
         />
       ) : (
         <Row>
-          <Col>
+          <Col css={{ minWidth: "90ch" }}>
             <TableWrapper
               jsonData={jsonData}
               col={["organization", "initials", "course_name"]}
               onRowClick={onRowClick}
             />
           </Col>
-          <Col>{rowID ? <CoursePage course={jsonData[rowID]} /> : <></>}</Col>
+          <Col>{rowID ? <CoursePage course={courseID} /> : <></>}</Col>
         </Row>
       )}
     </Container>

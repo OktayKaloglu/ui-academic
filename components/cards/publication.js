@@ -30,7 +30,7 @@ function displayDescription(publication, displayDesc) {
 const PublicationCard = ({ publication, displayDesc }) => {
   return (
     <Card
-      css={{ marginTop: "1vh" }}
+      className="card"
       isHoverable
       isPressable
       onPress={() => getCtitation(publication.author_pub_id)}
